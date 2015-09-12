@@ -93,7 +93,7 @@ define([
             toggleBtn($imageBtn, url);
           }).val('').trigger('focus');
           bindEnterKey($imageUrl, $imageBtn);
-        }).one('hidden.bs.modal', function () {
+        }).one('hidden.bs.modal', function (e) {
           $imageInput.off('change');
           $imageUrl.off('keyup paste keypress');
           $imageBtn.off('click');
@@ -101,6 +101,8 @@ define([
           if (deferred.state() === 'pending') {
             deferred.reject();
           }
+          //Stop the event propagating to other modals
+          e.stopImmediatePropagation();
         }).modal('show');
       });
     };
